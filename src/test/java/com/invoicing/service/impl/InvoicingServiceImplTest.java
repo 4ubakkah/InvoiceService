@@ -8,9 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
-import org.springframework.beans.factory.annotation.Autowired;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -61,7 +59,7 @@ public class InvoicingServiceImplTest {
     }
 
     @Test
-    public void create() throws Exception {
+    public void shouldDelegateCreateCall() throws Exception {
         InvoiceDto invoiceDto = new InvoiceDto();
         service.create(invoiceDto);
 
@@ -69,7 +67,7 @@ public class InvoicingServiceImplTest {
     }
 
     @Test
-    public void generateInvoice() throws Exception {
+    public void shouldDelegateGenerateInvoiceCall() throws Exception {
         long customerId = 1L;
 
         service.generateInvoice(customerId);

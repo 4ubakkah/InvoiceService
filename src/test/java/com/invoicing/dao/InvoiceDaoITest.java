@@ -1,57 +1,30 @@
 package com.invoicing.dao;
 
-import com.invoicing.dao.impl.InvoiceDaoImpl;
+import com.invoicing.BootStrapper;
+import com.invoicing.model.Invoice;
 import com.invoicing.model.InvoiceType;
 import com.invoicing.model.dto.InvoiceDto;
-import com.invoicing.model.Invoice;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
-import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabase;
-
-import static org.assertj.core.api.Assertions.*;
-
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseBuilder;
-import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.web.WebAppConfiguration;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 @RunWith(SpringJUnit4ClassRunner.class)
+@SpringBootTest(classes = BootStrapper.class)
+@WebAppConfiguration
 public class InvoiceDaoITest {
 
-    private EmbeddedDatabase db;
-    private InvoiceDaoImpl invoiceDao;
-
-    private DriverManagerDataSource dataSource;
-
-    @Before
-    public void setUp() {
-        db = new EmbeddedDatabaseBuilder()
-                .setType(EmbeddedDatabaseType.H2)
-                .addScript("dbschema.sql")
-                .addScript("dbdata.sql")
-                .build();
-        NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(db);
-
-        dataSource = new DriverManagerDataSource();
-        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-        dataSource.setUrl("jdbc:mysql://localhost/invicing");
-        dataSource.setUsername("root");
-        dataSource.setPassword("changeme01");
-
-        //NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
-
-        invoiceDao = new InvoiceDaoImpl();
-
-        invoiceDao.setNamedParameterJdbcTemplate(template);
-    }
+    @Autowired
+    private InvoiceDao invoiceDao;
 
     @Test
     public void shouldFindAllInvoicesPerCustomer() {
@@ -138,10 +111,4 @@ public class InvoiceDaoITest {
         cal.setTime(date);
         return cal.get(Calendar.MONTH) + 1;
     }
-
-    @After
-    public void tearDown() {
-        db.shutdown();
-    }
-
 }

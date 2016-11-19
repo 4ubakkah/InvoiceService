@@ -9,17 +9,16 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
 
-@Profile("hsql")
+@Profile("h2")
 @Configuration
-public class HsqlDataSource {
+public class H2DataSource {
 
-	//jdbc:hsqldb:mem:testdb
 	@Bean
 	public DataSource dataSource() {
 		EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
-		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.HSQL)
-				//.addScript("db/sql/invoicing/create_db.sql")
-				//.addScript("db/sql/invoicing/insert_data.sql")
+		EmbeddedDatabase db = builder.setType(EmbeddedDatabaseType.H2)
+				.addScript("dbschema.sql")
+				.addScript("dbdata.sql")
 				.build();
 		return db;
 	}

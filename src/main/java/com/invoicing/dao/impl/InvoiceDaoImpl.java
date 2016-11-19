@@ -2,9 +2,9 @@ package com.invoicing.dao.impl;
 
 
 import com.invoicing.dao.InvoiceDao;
+import com.invoicing.model.Invoice;
 import com.invoicing.model.InvoiceType;
 import com.invoicing.model.dto.InvoiceDto;
-import com.invoicing.model.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;

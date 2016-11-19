@@ -1,27 +1,3 @@
-/*
-
-INSERT INTO address VALUES (1, 'Estonia', 'Tallinn', 'Kotka', 1, '10121');
-INSERT INTO address VALUES (2, 'Estonia', 'Tallinn', 'Kotka', 2, '10121');
-
-INSERT INTO customer VALUES (1, 'Larry', 1);
-INSERT INTO customer VALUES (2, 'Henry', 2);
-INSERT INTO customer VALUES (3, 'Mark', 1);
-
-
-
-INSERT INTO invoice VALUES (1, '1', 'SHOPPING', '2016-02-13', '2016-02-13', '2016-02-13', '2016-02-13','DESC', 10, 2, 12, 1, 1);
-INSERT INTO invoice VALUES (2, '1', 'SHOPPING', '2016-02-13', '2016-02-13', '2016-02-13', '2016-02-13','DESC', 10, 2, 12, 1, 1);
-
-INSERT INTO services (amount, vat_amount, total_amount, customer_id, address_id, service_type) VALUES (1000, 200, 1200, 1, 1, 'SHOPPING');
-INSERT INTO services (amount, vat_amount, total_amount, customer_id, address_id, service_type) VALUES (10000, 2000, 12000, 1, 1, 'SHOPPING');
-INSERT INTO services (amount, vat_amount, total_amount, customer_id, address_id, service_type) VALUES (10, 2, 12, 1, 2, 'SHOPPING');
-INSERT INTO services (amount, vat_amount, total_amount, customer_id, address_id, service_type) VALUES (10000, 2000, 12000, 1, 1, 'HOME');
-
-
-*/
-
-
-
 INSERT INTO address (id, city, street, building, postal_code, country) VALUES (1, 'Tallinn', 'Kotka', '1', '10129', 'Estonia');
 INSERT INTO address (id, city, street, building, postal_code, country) VALUES (2, 'Tallinn', 'Viru', '1', '10129', 'Estonia');
 INSERT INTO address (id, city, street, building, postal_code, country) VALUES (3, 'Tallinn', 'Viru', '3', '10129', 'Estonia');
