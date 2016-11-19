@@ -43,7 +43,7 @@ public class InvoiceDaoITest {
 
         List<Invoice> invoices = invoiceDao.getMonthlyShopping(customerId, month);
 
-        assertThat(invoices).isNotNull().hasSize(1);
+        assertThat(invoices).isNotNull().hasSize(3);
         assertThat(invoices).extracting(i -> i.getCustomerId()).containsOnly(customerId);
         assertThat(invoices).extracting(i -> extractMonthFromDate(i.getInvoiceDate())).containsOnly(month);
     }

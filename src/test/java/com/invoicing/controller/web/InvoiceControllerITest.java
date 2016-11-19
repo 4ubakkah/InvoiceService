@@ -134,7 +134,7 @@ public class InvoiceControllerITest {
 
 
     @Test
-    @Ignore("Unignore when issue failing test is investigated.")
+    //@Ignore("Unignore when issue failing test is investigated.")
     public void shouldSucceedOnCreate() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/rest/invoicing/create")
                 .content(this.convertToJson(InvoiceFixture.anInvoice()))
@@ -153,7 +153,6 @@ public class InvoiceControllerITest {
 
 
     @Test
-    @Ignore("Unignore when issue failing test is investigated.")
     public void shouldSucceedOnGenerate() throws Exception {
         RequestDto requestDto = new RequestDto();
         requestDto.setCustomerId(1L);
