@@ -105,8 +105,9 @@ public class InvoiceDaoImpl implements InvoiceDao {
 
         String sql = "INSERT  into invoice (customer_id, address_id, vat_amount, amount, total_amount, type, invoice_date, payment_due_date, start_date, end_date)" +
                 "select customer_id, address_id, sum(vat_amount), sum(amount), sum(total_amount), service_type, :invoice_date, :payment_due_date, :month_start, :month_end from services " +
-                "GROUP BY address_id, customer_id, service_type HAVING customer_id = :customer_id";
+                "GROUP BY address_id, customer_id, service_type, month(timestamp) HAVING customer_id = :customer_id";
         namedParameterJdbcTemplate.update(sql, params);
+
 
         namedParameterJdbcTemplate.update("DELETE FROM SERVICES WHERE customer_id = :customer_id", params);
     }

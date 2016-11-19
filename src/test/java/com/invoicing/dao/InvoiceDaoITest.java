@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -21,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(classes = BootStrapper.class)
 @WebAppConfiguration
+@Transactional
 public class InvoiceDaoITest {
 
     @Autowired
@@ -43,7 +45,7 @@ public class InvoiceDaoITest {
 
         List<Invoice> invoices = invoiceDao.getMonthlyShopping(customerId, month);
 
-        assertThat(invoices).isNotNull().hasSize(3);
+        assertThat(invoices).isNotNull().hasSize(1);
         assertThat(invoices).extracting(i -> i.getCustomerId()).containsOnly(customerId);
         assertThat(invoices).extracting(i -> extractMonthFromDate(i.getInvoiceDate())).containsOnly(month);
     }
@@ -93,17 +95,17 @@ public class InvoiceDaoITest {
     @Test
     public void shouldGenerateInvoices() {
         long customerId = 3;
-        long addressId = 3;
 
-        assertThat(invoiceDao.getAll(customerId, addressId).size()).isEqualTo(0);
+        assertThat(invoiceDao.getAll(customerId)).isEmpty();
 
         invoiceDao.generateInvoice(customerId);
 
-        List<Invoice> existingInvoices = invoiceDao.getAll(customerId, addressId);
+        List<Invoice> existingInvoices = invoiceDao.getAll(customerId);
 
-        assertThat(existingInvoices.size()).isEqualTo(1);
-        assertThat(existingInvoices.get(0).getCustomerId()).isEqualTo(customerId);
-        assertThat(existingInvoices.get(0).getAddressId()).isEqualTo(addressId);
+        assertThat(existingInvoices).isNotEmpty();
+
+        assertThat(existingInvoices).extracting(invoice -> invoice.getCustomerId()).containsOnly(customerId);
+        assertThat(existingInvoices).extracting(invoice -> invoice.getAddressId()).containsOnly(1L, 2L, 3L);
     }
 
     private int extractMonthFromDate(Date date) {
