@@ -30,11 +30,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         Map<String, Object> params = new HashMap<>();
         params.put("customer_id", customerId);
         params.put("type", InvoiceType.HOUSING.getValue());
-        //params.put("monthStart", getSelectedMonthStart(month));
-        //params.put("monthEnd", getSelectedMonthEnd(month));
         params.put("month", month);
-
-        //String sql = "SELECT * FROM invoice WHERE customer_Id=:customer_id AND type=:type AND invoice_date >= :monthStart AND invoice_date <= :monthEnd";
 
         String sql = "SELECT * FROM invoice WHERE customer_Id=:customer_id AND type=:type AND EXTRACT(MONTH FROM invoice_date) = :month";
         List<Invoice> result = namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
@@ -47,9 +43,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         params.put("customer_id", customerId);
         params.put("type", InvoiceType.SHOPPING.getValue());
         params.put("month", month);
-        //params.put("monthStart", getSelectedMonthStart(month));
-        //params.put("monthEnd", getSelectedMonthEnd(month));
-        //String sql = "SELECT * FROM invoice WHERE customer_id=:customer_id AND type=:type  AND invoice_date >= :monthStart AND invoice_date <= :monthEnd";
+
         String sql = "SELECT * FROM invoice WHERE customer_id=:customer_id AND type=:type AND EXTRACT(MONTH FROM invoice_date) = :month";
         List<Invoice> result = namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
         return result;

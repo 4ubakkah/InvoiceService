@@ -9,7 +9,7 @@ import org.springframework.jdbc.datasource.embedded.EmbeddedDatabaseType;
 
 import javax.sql.DataSource;
 
-@Profile("hsql")
+@Profile("mysql")
 @Configuration
 public class MysqlDataSource {
 
