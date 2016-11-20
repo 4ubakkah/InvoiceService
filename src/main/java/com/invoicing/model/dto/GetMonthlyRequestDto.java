@@ -5,9 +5,9 @@ import javax.validation.constraints.NotNull;
 public class GetMonthlyRequestDto extends RequestDto {
 
     @NotNull
-    Integer month;
+    private Integer month;
 
-    public GetMonthlyRequestDto(){};
+    public GetMonthlyRequestDto(){}
 
     public GetMonthlyRequestDto(Long customerId, Integer month) {
         super(customerId);

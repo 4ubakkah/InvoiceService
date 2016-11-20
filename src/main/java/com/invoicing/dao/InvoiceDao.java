@@ -7,12 +7,17 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/*@Transactional*/
 @Service
 public interface InvoiceDao  {
 
+    /**
+     * Returns invoices where type is @see com.invoicing.model.InvoiceType.HOUSING}
+     */
     List<Invoice> getMonthlyHousing(long customerId, int month);
 
+    /**
+     * Returns invoices where type is @see com.invoicing.model.InvoiceType.SHOPPING
+     */
     List<Invoice> getMonthlyShopping(long customerId, int month);
 
     List<Invoice> getAll(long customerId, long addressId);
@@ -21,6 +26,10 @@ public interface InvoiceDao  {
 
     void create(InvoiceDto dto);
 
-    void generateInvoice(long customerId);
+    /**
+     * Generates monthly invoice per customer address using consumed services.
+     * After invoice is generated consumed services for given customer are cleared.
+     */
+    void generateMonthlyInvoice(long customerId);
 
 }

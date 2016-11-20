@@ -35,7 +35,7 @@ public class InvoiceDaoITest {
         List<Invoice> invoices = invoiceDao.getAll(customerId);
 
         assertThat(invoices).isNotNull().hasSize(2);
-        assertThat(invoices).extracting(i -> i.getCustomerId()).containsOnly(customerId);
+        assertThat(invoices).extracting(Invoice::getCustomerId).containsOnly(customerId);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class InvoiceDaoITest {
         List<Invoice> invoices = invoiceDao.getMonthlyShopping(customerId, month);
 
         assertThat(invoices).isNotNull().hasSize(1);
-        assertThat(invoices).extracting(i -> i.getCustomerId()).containsOnly(customerId);
+        assertThat(invoices).extracting(Invoice::getCustomerId).containsOnly(customerId);
         assertThat(invoices).extracting(i -> extractMonthFromDate(i.getInvoiceDate())).containsOnly(month);
     }
 
@@ -58,7 +58,7 @@ public class InvoiceDaoITest {
         List<Invoice> invoices = invoiceDao.getMonthlyHousing(customerId, month);
 
         assertThat(invoices).isNotNull().hasSize(2);
-        assertThat(invoices).extracting(i -> i.getCustomerId()).containsOnly(customerId);
+        assertThat(invoices).extracting(Invoice::getCustomerId).containsOnly(customerId);
         assertThat(invoices).extracting(i -> extractMonthFromDate(i.getInvoiceDate())).containsOnly(month);
     }
 
@@ -70,7 +70,7 @@ public class InvoiceDaoITest {
         List<Invoice> invoices = invoiceDao.getAll(customerId, addressId);
 
         assertThat(invoices).isNotNull().hasSize(2);
-        assertThat(invoices).extracting(i -> i.getAddressId()).containsOnly(addressId);
+        assertThat(invoices).extracting(Invoice::getAddressId).containsOnly(addressId);
     }
 
     @Test
@@ -98,14 +98,14 @@ public class InvoiceDaoITest {
 
         assertThat(invoiceDao.getAll(customerId)).isEmpty();
 
-        invoiceDao.generateInvoice(customerId);
+        invoiceDao.generateMonthlyInvoice(customerId);
 
         List<Invoice> existingInvoices = invoiceDao.getAll(customerId);
 
         assertThat(existingInvoices).isNotEmpty();
 
-        assertThat(existingInvoices).extracting(invoice -> invoice.getCustomerId()).containsOnly(customerId);
-        assertThat(existingInvoices).extracting(invoice -> invoice.getAddressId()).containsOnly(1L, 2L, 3L);
+        assertThat(existingInvoices).extracting(Invoice::getCustomerId).containsOnly(customerId);
+        assertThat(existingInvoices).extracting(Invoice::getAddressId).containsOnly(1L, 2L, 3L);
     }
 
     private int extractMonthFromDate(Date date) {

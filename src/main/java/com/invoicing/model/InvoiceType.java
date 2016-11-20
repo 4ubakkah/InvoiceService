@@ -1,14 +1,11 @@
 package com.invoicing.model;
 
-/**
- * Created by xnekedx on 02.11.2016.
- */
 public enum InvoiceType {
 
     SHOPPING("ShopPurchase"),
     HOUSING("AdvancePayment");
 
-    private String value;
+    private final String value;
 
     InvoiceType(String value) {
         this.value = value;

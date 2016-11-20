@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.JstlView;
 @Configuration
 @ComponentScan({ "com.invoicing.controller" })
 @EnableSpringDataWebSupport
-public class SpringWebConfig extends WebMvcConfigurerAdapter {
+class SpringWebConfig extends WebMvcConfigurerAdapter {
  
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {

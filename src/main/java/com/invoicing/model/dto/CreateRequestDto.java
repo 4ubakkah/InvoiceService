@@ -1,5 +1,5 @@
 package com.invoicing.model.dto;
 
-public class CreateRequestDto extends InvoiceDto{
+class CreateRequestDto extends InvoiceDto{
 
 }

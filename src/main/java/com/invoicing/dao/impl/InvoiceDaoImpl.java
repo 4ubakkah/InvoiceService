@@ -18,7 +18,7 @@ import java.util.*;
 @Repository
 public class InvoiceDaoImpl implements InvoiceDao {
 
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
     @Autowired
     public void setNamedParameterJdbcTemplate(NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
@@ -33,8 +33,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         params.put("month", month);
 
         String sql = "SELECT * FROM invoice WHERE customer_Id=:customer_id AND type=:type AND EXTRACT(MONTH FROM invoice_date) = :month";
-        List<Invoice> result = namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
-        return result;
+        return namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
     }
 
     @Override
@@ -45,8 +44,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         params.put("month", month);
 
         String sql = "SELECT * FROM invoice WHERE customer_id=:customer_id AND type=:type AND EXTRACT(MONTH FROM invoice_date) = :month";
-        List<Invoice> result = namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
-        return result;
+        return namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
     }
 
     @Override
@@ -55,8 +53,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         params.put("customer_id", customerId);
         params.put("address_id", addressId);
         String sql = "SELECT * FROM invoice WHERE customer_id=:customer_id and address_id=:address_id";
-        List<Invoice> result = namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
-        return result;
+        return namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
     }
 
     @Override
@@ -64,8 +61,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
         Map<String, Object> params = new HashMap<>();
         params.put("customer_id", customerId);
         String sql = "SELECT * FROM invoice WHERE customer_id=:customer_id";
-        List<Invoice> result = namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
-        return result;
+        return namedParameterJdbcTemplate.query(sql, params, new InvoiceMapper());
     }
 
     @Override
@@ -91,7 +87,7 @@ public class InvoiceDaoImpl implements InvoiceDao {
 
     @Override
     @Transactional
-    public void generateInvoice(long customerId) {
+    public void generateMonthlyInvoice(long customerId) {
         Map<String, Object> params = new HashMap<>();
 
         GregorianCalendar timeNow = new GregorianCalendar();
@@ -107,7 +103,6 @@ public class InvoiceDaoImpl implements InvoiceDao {
                 "select customer_id, address_id, sum(vat_amount), sum(amount), sum(total_amount), service_type, :invoice_date, :payment_due_date, :month_start, :month_end from services " +
                 "GROUP BY address_id, customer_id, service_type, month(timestamp) HAVING customer_id = :customer_id";
         namedParameterJdbcTemplate.update(sql, params);
-
 
         namedParameterJdbcTemplate.update("DELETE FROM SERVICES WHERE customer_id = :customer_id", params);
     }

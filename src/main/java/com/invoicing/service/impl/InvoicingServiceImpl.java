@@ -45,6 +45,6 @@ public class InvoicingServiceImpl implements InvoicingService {
 
     @Override
     public void generateInvoice(long customerId) {
-        invoiceDao.generateInvoice(customerId);
+        invoiceDao.generateMonthlyInvoice(customerId);
     }
 }

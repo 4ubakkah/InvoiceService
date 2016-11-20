@@ -72,7 +72,7 @@ public class InvoicingServiceImplTest {
 
         service.generateInvoice(customerId);
 
-        verify(invoiceDao).generateInvoice(customerId);
+        verify(invoiceDao).generateMonthlyInvoice(customerId);
     }
 
 }

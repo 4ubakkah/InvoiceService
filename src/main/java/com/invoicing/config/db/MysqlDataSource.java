@@ -9,8 +9,10 @@ import javax.sql.DataSource;
 
 @Profile("mysql")
 @Configuration
-public class MysqlDataSource {
+@Deprecated
+class MysqlDataSource {
 
+/*
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -21,5 +23,6 @@ public class MysqlDataSource {
 
         return dataSource;
     }
+*/
 
 }

@@ -1,7 +1,7 @@
 package com.invoicing.model.mapper.impl;
 
-import com.invoicing.model.dto.InvoiceDto;
 import com.invoicing.model.Invoice;
+import com.invoicing.model.dto.InvoiceDto;
 import com.invoicing.model.mapper.InvoiceMapper;
 import org.springframework.stereotype.Service;
 
@@ -50,17 +50,9 @@ public class InvoiceMapperImpl implements InvoiceMapper {
     }
 
     @Override
-    public List<Invoice> mapDtoToEntity(List<InvoiceDto> dtos) {
-        List<Invoice> invoices = new ArrayList<>(dtos.size());
-        dtos.stream().forEach(dto -> invoices.add(mapDtoToEntity(dto)));
-
-        return invoices;
-    }
-
-    @Override
     public List<InvoiceDto> mapEntityToDto(List<Invoice> entities) {
         List<InvoiceDto> invoices = new ArrayList<>(entities.size());
-        entities.stream().forEach(entity -> invoices.add(mapEntityToDto(entity)));
+        entities.forEach(entity -> invoices.add(mapEntityToDto(entity)));
 
         return invoices;
     }

@@ -5,9 +5,9 @@ import javax.validation.constraints.NotNull;
 public class GetByAddressRequestDto extends RequestDto {
 
     @NotNull
-    Long addressId;
+    private Long addressId;
 
-    public GetByAddressRequestDto() {};
+    public GetByAddressRequestDto() {}
 
     public GetByAddressRequestDto(Long customerId, Long addressId) {
         super(customerId);

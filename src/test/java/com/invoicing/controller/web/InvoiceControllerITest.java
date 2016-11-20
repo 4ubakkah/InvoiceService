@@ -40,7 +40,7 @@ public class InvoiceControllerITest {
     private MockMvc mockMvc;
     private HttpMessageConverter jsonToHttpMessageConverter;
 
-    private MediaType jsonContentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
+    private final MediaType jsonContentType = new MediaType(MediaType.APPLICATION_JSON.getType(),
             MediaType.APPLICATION_JSON.getSubtype(),
             Charset.forName("utf8"));
 
@@ -134,7 +134,6 @@ public class InvoiceControllerITest {
 
 
     @Test
-    //@Ignore("Unignore when issue failing test is investigated.")
     public void shouldSucceedOnCreate() throws Exception {
         mockMvc.perform(MockMvcRequestBuilders.post("/rest/invoicing/create")
                 .content(this.convertToJson(InvoiceFixture.anInvoice()))
@@ -157,7 +156,7 @@ public class InvoiceControllerITest {
         RequestDto requestDto = new RequestDto();
         requestDto.setCustomerId(1L);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/rest/invoicing/generate")
+        mockMvc.perform(MockMvcRequestBuilders.post("/rest/invoicing/generateMonthlyInvoices")
                 .content(this.convertToJson(requestDto))
                 .contentType(jsonContentType))
                 .andExpect(MockMvcResultMatchers.status().isOk())
@@ -167,12 +166,12 @@ public class InvoiceControllerITest {
 
     @Test
     public void shouldFail_onGenerate_whenNonValidRequest() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/rest/invoicing/generate")
+        mockMvc.perform(MockMvcRequestBuilders.post("/rest/invoicing/generateMonthlyInvoices")
                 .contentType(jsonContentType))
                 .andExpect(MockMvcResultMatchers.status().isBadRequest());
     }
 
-    protected String convertToJson(Object input) throws IOException {
+    private String convertToJson(Object input) throws IOException {
         MockHttpOutputMessage httpMessage = new MockHttpOutputMessage();
         jsonToHttpMessageConverter.write(input, MediaType.APPLICATION_JSON, httpMessage);
         return httpMessage.getBodyAsString();
